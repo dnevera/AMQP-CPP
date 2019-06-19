@@ -67,11 +67,23 @@ Requirements
 
 1. pkg-config
 1. OpenSSL
+1. libuv
 
 ## Install pkg-config
-1. On Linux sudo apt-get install pkg-config
-1. On OSX brew install pkg-config
+ 1. On Linux ```sudo apt-get install pkg-config```
+ 1. On OSX ```brew install pkg-config```
 
+## Install libuv
+ 1. On Linux:
+ ```bash
+ $ sudo add-apt-repository ppa:acooks/libwebsockets6
+ $ sudo apt-get update
+ $ sudo apt-get install libuv1.dev
+ ```
+ 2. On OSX:
+ ```bash
+  $ brew install libuv
+ ```
 
 INSTALLING
 ==========
