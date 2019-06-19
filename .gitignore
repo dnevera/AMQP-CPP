@@ -18,3 +18,4 @@
 .atom-build.cson
 .atom-dbg.cson
 /bin
+cmake-build-*

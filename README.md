@@ -62,6 +62,16 @@ Then check out our other commercial and open source solutions:
 * PHP-JS bridge between PHP and Javascript (www.php-js.com)
 * Yothalot big data processor (www.yothalot.com)
 
+Requirements 
+==========
+
+1. pkg-config
+1. OpenSSL
+
+## Install pkg-config
+1. On Linux sudo apt-get install pkg-config
+1. On OSX brew install pkg-config
+
 
 INSTALLING
 ==========

@@ -19,6 +19,11 @@ set (VERSION_MINOR 1)
 set (VERSION_PATCH 4)
 set (SO_VERSION ${VERSION_MAJOR}.${VERSION_MINOR})
 
+if(AMQP-CPP_LINUX_TCP)
+    find_package (OpenSSL)
+    include_directories(${OPENSSL_INCLUDE_DIR})
+endif()
+
 # build options
 option(AMQP-CPP_BUILD_SHARED "Build shared library. If off, build will be static." OFF)
 option(AMQP-CPP_LINUX_TCP "Build linux sockets implementation." OFF)
@@ -32,6 +37,7 @@ set (CMAKE_CXX_STANDARD 11)
 
 # set include/ as include directory
 include_directories(SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/include)
+include_directories(${OPENSSL_INCLUDE_DIR})
 
 # macro that adds a list of provided source files to a list called SRCS.
 # if variable SRCS does not yet exist, it is created.
