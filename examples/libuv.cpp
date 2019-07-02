@@ -13,6 +13,8 @@
 #include <uv.h>
 #include <amqpcpp.h>
 #include <amqpcpp/libuv.h>
+#include <future>
+#include <thread>
 
 /**
  *  Custom handler
@@ -52,14 +54,44 @@ public:
     virtual ~MyHandler() = default;
 };
 
+void timer_callback(uv_timer_t *handle){
+  std::cout << "monitor ping ... " << std::endl;
+}
+
+void main_loop() {
+  uv_async_t async;
+
+  /* Main thread will run default loop */
+  uv_loop_t *main_loop = uv_default_loop();
+  uv_timer_t timer_req;
+  uv_timer_init(main_loop, &timer_req);
+
+  /* Timer callback needs async so it knows where to send messages */
+  timer_req.data = &async;
+  uv_timer_start(&timer_req, timer_callback, 0, 2000);
+
+  std::cout << "Starting main loop" << std::endl;
+  uv_run(main_loop, UV_RUN_DEFAULT);
+
+}
+
 /**
  *  Main program
  *  @return int
  */
 int main()
 {
-  // access to the event loop
-  auto *loop = uv_default_loop();
+  std::promise<std::string> promise_message;
+
+//  std::thread thread([&promise_message]{
+//      std::cout << "promise_message waiting  : " << std::endl;
+//      std::cout << "promise_message recieved :  "<<promise_message.get_future().get() << std::endl;
+//  });
+//
+//  thread.detach();
+
+
+  uv_loop_t* loop = uv_loop_new();
 
   // handler for libev
   MyHandler handler(loop);
@@ -69,6 +101,21 @@ int main()
 
   // we need a channel too
   AMQP::TcpChannel channel(&connection);
+
+  channel
+
+          .declareExchange("amq.topic", AMQP::topic, AMQP::durable)
+
+          .onSuccess([]{
+              std::cerr << "declared exchange saccess: " << std::endl;
+
+          })
+          .onError([](const char *message){
+              std::cerr << "declared exchange error" << message << std::endl;
+
+          });
+
+  std::cout << "1... " << std::endl;
 
   // create a queue
   channel
@@ -88,6 +135,8 @@ int main()
           });
 
 
+  std::cout << "2... " << std::endl;
+
   channel
 
           .bindQueue("amq.topic", "capy-test", "echo.ping")
@@ -104,6 +153,8 @@ int main()
           });
 
 
+  std::cout << "3... " << std::endl;
+
   channel
 
           .consume("capy-test")
@@ -118,6 +169,8 @@ int main()
               // acknowledge the message
               channel.ack(deliveryTag);
 
+              //promise_message.set_value(message.body());
+
           })
 
           .onSuccess( [](const std::string &consumertag) {
@@ -130,9 +183,21 @@ int main()
               std::cout << "consume operation failed: " << message << std::endl;
           });
 
+  std::cout << "4... " << std::endl;
 
-  // run the loop
-  uv_run(loop, UV_RUN_DEFAULT);
+  std::thread thread_loop([loop] {
+      uv_run(loop, UV_RUN_DEFAULT);
+  });
+
+  std::cout << "5... " << std::endl;
+
+  thread_loop.detach();
+
+  std::cout << "6... " << std::endl;
+
+  main_loop();
+
+  std::cout << "7... " << std::endl;
 
   // done
   return 0;
