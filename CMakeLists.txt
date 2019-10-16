@@ -32,7 +32,7 @@ option(AMQP-CPP_BUILD_EXAMPLES "Build amqpcpp examples" OFF)
 # ensure c++11 on all compilers
 set (CMAKE_CXX_STANDARD 11)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -W -Wall -Wextra -Wno-ignored-qualifiers -Wvariadic-macros -pthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -W -Wall -Wextra -Wno-unused-parameter -Wno-ignored-qualifiers -Wvariadic-macros -pthread")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
 
 # add source files
@@ -139,3 +139,5 @@ target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC
 if(AMQP-CPP_LINUX_TCP)
     target_link_libraries(${PROJECT_NAME} ${CMAKE_DL_LIBS})
 endif()
+
+message(STATUS "CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS})
