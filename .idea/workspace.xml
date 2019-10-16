@@ -32,8 +32,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="506">
-              <caret line="142" column="29" selection-start-line="142" selection-end-line="142" selection-end-column="53" />
+            <state relative-caret-position="343">
+              <caret line="28" column="66" selection-start-line="28" selection-start-column="66" selection-end-line="28" selection-end-column="66" />
             </state>
           </provider>
         </entry>
@@ -220,12 +220,12 @@
       <workItem from="1562322265388" duration="2292000" />
       <workItem from="1565255252215" duration="634000" />
       <workItem from="1565339935579" duration="1416000" />
-      <workItem from="1571230307934" duration="3445000" />
+      <workItem from="1571230307934" duration="3876000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67096000" />
+    <option name="totallyTimeSpent" value="67527000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -620,8 +620,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="142" column="29" selection-start-line="142" selection-end-line="142" selection-end-column="53" />
+        <state relative-caret-position="343">
+          <caret line="28" column="66" selection-start-line="28" selection-start-column="66" selection-end-line="28" selection-end-column="66" />
         </state>
       </provider>
     </entry>
