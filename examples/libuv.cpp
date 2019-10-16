@@ -29,7 +29,7 @@ private:
      */
     virtual void onError(AMQP::TcpConnection *connection, const char *message) override
     {
-      std::cout << "error: " << message << std::endl;
+      std::cout << "onError: " << message << std::endl;
     }
 
     /**
@@ -38,7 +38,11 @@ private:
      */
     virtual void onConnected(AMQP::TcpConnection *connection) override
     {
-      std::cout << "connected" << std::endl;
+      std::cout << "onConnected" << connection->heartbeat() << std::endl;
+    }
+
+    virtual void onLost(AMQP::TcpConnection *connection) override {
+      std::cout << "onLost" << connection->heartbeat() << std::endl;
     }
 
 public:
